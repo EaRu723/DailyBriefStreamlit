@@ -115,13 +115,25 @@ def display_headlines(data):
 def display_source_headlines(source_name, source_url):
     data = fetch_headlines(source_url)
     if data:
+        # Extract the base URL from the query parameter
+        base_url = None
+        if 'query' in data and len(data['query']) > 0:
+            from_params = [q for q in data['query'] if q[0] == 'FROM']
+            if from_params:
+                base_url = from_params[0][1]
+        
         # Remove any "Headlines" text that might be in the source_name
         display_name = source_name.replace(" Headlines", "")
-        st.markdown(f"""
+        
+        # Make the header clickable if we have a base URL
+        header_html = f"""
             <div class="source-header">
+                {f'<a href="{base_url}" target="_blank" style="text-decoration: none; color: inherit;">' if base_url else ''}
                 <h3 style='margin: 0;'>{display_name}</h3>
+                {f'</a>' if base_url else ''}
             </div>
-        """, unsafe_allow_html=True)
+        """
+        st.markdown(header_html, unsafe_allow_html=True)
         display_headlines(data)
 
 def main():
