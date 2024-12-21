@@ -14,6 +14,7 @@ class URLs:
     CRUNCH_BASE = "https://lsd.so/huxley?query=give%20me%20every%20Headline%20and%20Link%20on%20this%20page&url=https%3A%2F%2Fnews.crunchbase.com%2F"
     FOOTBALL_ITALIA = "https://lsd.so/huxley?query=give%20me%20every%20Headline%20and%20Link%20on%20this%20page&url=https%3A%2F%2Ffootball-italia.net%2Fcategory%2Fnews%2F"
     MILAN = "https://lsd.so/huxley?query=give%20me%20every%20Headline%20and%20Link%20on%20this%20page&url=https%3A%2F%2Fbleacherreport.com%2Fac-milan"
+    CHAMPIONS_LEAGUE = "https://lsd.so/huxley?query=give%20me%20every%20Headline%20and%20Link%20on%20this%20page&url=https%3A%2F%2Fbleacherreport.com%2Fuefa-champions-league"
 
 def fetch_headlines(url):
     try:
@@ -167,7 +168,8 @@ def main():
         },
         "⚽ Soccer": {
             "🇮🇹 Football Italia": URLs.FOOTBALL_ITALIA,
-            "🏆 Milan News": URLs.MILAN
+            "🏆 Milan News": URLs.MILAN,
+            "🌟 Champions League": URLs.CHAMPIONS_LEAGUE
         }
     }
     
@@ -197,7 +199,7 @@ def main():
                     display_source_headlines(source_name, source_url)
                     
         elif selected_category == "⚽ Soccer":
-            cols = st.columns(2)
+            cols = st.columns(3)
             for idx, (source_name, source_url) in enumerate(sources.items()):
                 with cols[idx]:
                     display_source_headlines(source_name, source_url)
